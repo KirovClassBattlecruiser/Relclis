@@ -116,12 +116,12 @@ impl CLI {
     pub fn question_from_input(input: &String, delimiter: &char) -> String {
         let mut result = Vec::new();
         let mut back: String = String::new();
-        for substr in input {
-            if (substr == delimiter) {
+        for substr in input.chars() {
+            if (substr == *delimiter) {
                 result.push(back.clone());
                 back.clear();
             } else {
-                back += substr;
+                back.insert(1, substr);
             }
         }
 
@@ -141,10 +141,10 @@ impl CLI {
 
             input.trim();
 
-            let args = self.args_from_input(&input, " ");
-            let command = self.command_from_input(&input, " ");
+            let args = CLI::args_from_input(&input, &' ');
+            let command = CLI::question_from_input(&input, &' ');
 
-            let result = self.executeCommand(args, command);
+            let result = self.executeCommand(command, args);
             match result {
                 Ok(()) => {}
                 Err(String) => {
