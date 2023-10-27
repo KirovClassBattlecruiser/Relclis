@@ -4,7 +4,7 @@ use std::io;
 use std::ops::{Add, AddAssign};
 use std::process::exit;
 
-struct CLI {
+pub struct CLI {
     commandMap: HashMap<String, fn(Vec<String>)>,
 }
 
